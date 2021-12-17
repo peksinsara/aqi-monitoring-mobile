@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "aqi-monitoring-mobile",
-    "slug": "aqi-monitoring-mobile",
+    "name": "AQIMonitoring",
+    "slug": "AQIMonitoring",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,9 +17,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.genzdevelopment.AQIMonitoring",
     },
     "android": {
+      "package": "com.genzdevelopment.AQIMonitoring",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
