@@ -6,10 +6,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Screens
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import MapScreen from './screens/MapScreen';
+
 
 //Screen names
 const homeName = "Home";
 const detailsName = "Details";
+const mapName = "Map";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +29,10 @@ function MainContainer() {
             if (rn === homeName) {
               iconName = focused ? 'home' : 'home-outline';
 
+            } else if (rn === mapName) {
+              iconName = focused ? 'map' : 'map-outline';
+              
+
             } else if (rn === detailsName) {
               iconName = focused ? 'list' : 'list-outline';
 
@@ -35,15 +42,12 @@ function MainContainer() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
-        tabBarOptions={{
-          activeTintColor: 'blue',
-          inactiveTintColor: 'black',
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 80}
-        }}>
+       >
 
         <Tab.Screen name={homeName} component={HomeScreen} />
+        <Tab.Screen name={mapName} component={MapScreen} />
         <Tab.Screen name={detailsName} component={DetailsScreen} />
+        
 
       </Tab.Navigator>
     </NavigationContainer>
