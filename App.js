@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './navigation/Home';
-import Details from'./navigation/Details';
+import MyLocation from'./navigation/MyLocation';
 import Maps from'./navigation/Map';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer} from '@react-navigation/native';
@@ -22,7 +22,7 @@ let iconName;
  
 if (route.name === 'Home') {
 iconName = 'md-home';
-} else if (route.name === 'Details') {
+} else if (route.name === 'MyLocation') {
 iconName = 'md-home';
 }
 else if (route.name === 'Maps') {
@@ -36,7 +36,7 @@ return <Ionicons name = {iconName} size={size} color={color} />;
 >
 <sampleTabNavigation.Screen name="Home" component={Home} />
 <sampleTabNavigation.Screen name="Maps" component={Maps} />
-<sampleTabNavigation.Screen name="Details" component={Details} />
+<sampleTabNavigation.Screen name="MyLocation" component={MyLocation} />
 
 </sampleTabNavigation.Navigator>
 </NavigationContainer>

@@ -44,7 +44,9 @@ export default class MapScreen extends React.Component {
         ></Text>
 
         <View style={styles.container}>
-          <MapView
+       
+
+        <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             initialRegion={{

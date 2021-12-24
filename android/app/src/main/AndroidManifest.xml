@@ -4,6 +4,10 @@
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <!--enable user permission-->
+  <uses-permission
+   android:name="android.permission.ACCESS_FINE_LOCATION"
+/>
   <queries>
     <intent>
       <action android:name="android.intent.action.VIEW"/>
@@ -11,6 +15,8 @@
       <data android:scheme="https"/>
     </intent>
   </queries>
+
+
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/AppTheme" android:usesCleartextTraffic="true">
 
    <!-- You will only need to add this meta-data tag, but make sure it's a child of application -->
@@ -21,7 +27,8 @@
    <!-- You will also only need to add this uses-library tag -->
    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
-    
+
+
     <meta-data android:name="expo.modules.updates.ENABLED" android:value="true"/>
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="43.0.0"/>
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH" android:value="ALWAYS"/>
