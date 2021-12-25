@@ -1,10 +1,24 @@
 import React from "react";
-import {  View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+
+
+
+
+const styles = StyleSheet.create({
+
+    container: {
+      height:"100%",
+      backgroundColor:"#001440"
+  
+    },
+   
+  });
+
 export default class Home extends React.Component{
  
 render(){
 return(
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+<View style={styles.container}>
 <Text>
 This is Home Screen
 </Text>

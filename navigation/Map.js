@@ -1,74 +1,102 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    height: "100%",
+  white:{
+    color:"#fff"
   },
-  map: {
-    ...StyleSheet.absoluteFillObject,
+  AQI:{
+    color:"#AC4FC6"
+  },
+  container: {
+    flex: 1,
+    backgroundColor:"#001440"
+
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "blue",
+  },
+  list: {
+    paddingVertical: 2,
+    padding:20,
+    marginLeft:10,
+    marginRight:10,
+    marginTop:5,
+    marginBottom:5,
+    backgroundColor: "#050a30",
+    color:"white",
+    borderRadius: 15,
   },
 });
 
 export default class MapScreen extends React.Component {
-  state = {
-    aqi: " ",
-    location: "",
-    lat: 0,
-    long: 0,
-  };
-  /*https://api.waqi.info/feed/sarajevo/?token=2ec4dd778796b645fcba62b587874b25e477acd9*/
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      dataSource: [],
+    };
+  }
   componentDidMount() {
-    const location = "sarajevo";
-    const token = "2ec4dd778796b645fcba62b587874b25e477acd9";
-    fetch(`https://api.waqi.info/feed/${location}/?token=${token}`)
-      .then((res) => res.json())
-      .then((fetchedData) => {
+    fetch(
+      "https://api.waqi.info/map/bounds/?latlng=89.45016124669523,180,-87.71179927260242,-180&token=2ec4dd778796b645fcba62b587874b25e477acd9"
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
         this.setState({
-          location: fetchedData.data.city.name,
-          aqi: String(fetchedData.data.aqi),
-          lat: fetchedData.data.city.geo[0],
-          long: fetchedData.data.city.geo[1],
+          loading: false,
+          dataSource: responseData.data,
         });
-      });
+      })
+      .catch((error) => console.log(error)); //to catch the errors if any
   }
 
-  render() {
+
+  FlatListItemSeparator = () => {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text
-          onPress={() => navigation.navigate("Home")}
-          style={{ fontSize: 26, fontWeight: "bold" }}
-        ></Text>
+    <View style={{
+    height: .5,
+    width:"100%",
+    }}
+    />
+    );
+    } 
 
-        <View style={styles.container}>
-       
-
-        <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            initialRegion={{
-              latitude: 43.86666667,
-              longitude: 18.416667,
-              latitudeDelta: 0.0835,
-              longitudeDelta: 2.3,
-            }}
-          >
-            <Marker
-              key={Math.random()}
-              coordinate={{
-                latitude: this.state.lat,
-                longitude: this.state.long,
-              }}
-              title={this.state.location}
-              description={this.state.aqi}
-            ></Marker>
-          </MapView>
-
-
+  renderItem = (data) => (
+    <TouchableOpacity style={styles.list}>
+      <Text style={styles.white}>Station : {data.item.station.name}</Text>
+      <Text style={styles.white}>Lat : {data.item.lat}</Text>
+      <Text style={styles.white}>Long : {data.item.lon}</Text>
+      <Text style={styles.AQI}>AQI : {data.item.aqi}</Text>
+    </TouchableOpacity>
+  );
+  render() {
+    if (this.state.loading) {
+      return (
+        <View>
+          <ActivityIndicator size="large" color="#0c9" />
         </View>
+      );
+    }
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={this.state.dataSource}
+          ItemSeparatorComponent={this.FlatListItemSeparator}
+          renderItem={(item) => this.renderItem(item)}
+          keyExtractor={(item) => item.uid.toString()}
+        />
       </View>
     );
   }
